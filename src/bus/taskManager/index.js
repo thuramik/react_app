@@ -8,11 +8,13 @@ import { Create } from '../../bus/taskManager/components/create';
 import { useTaskManager } from './hooks/useTaskManager';
 import {createTaskManager} from "./hooks/createTaskManager";
 import {deleteTaskManager} from "./hooks/deleteTaskManager";
+import {updateTaskManager} from "./hooks/updateTaskManager";
 
 export const TaskManager = () => {
     const { tasks } = useTaskManager();
     const createTask = createTaskManager();
     const deleteTask = deleteTaskManager();
+    const updateTask = updateTaskManager();
 
     return (
         <div>
@@ -22,7 +24,7 @@ export const TaskManager = () => {
             <br />
             <Create createTask={createTask} />
             <br />
-            <List items={tasks} deleteTask={deleteTask} />
+            <List items={tasks} deleteTask={deleteTask} updateTask={updateTask} />
         </div>
     );
 };
