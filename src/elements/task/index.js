@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox } from '@fluentui/react';
+import { Checkbox, DefaultButton } from '@fluentui/react';
 
 export const Task = ({ isComplited, label }) => (
 <>
@@ -7,6 +7,5 @@ export const Task = ({ isComplited, label }) => (
         label={label}
         checked={isComplited}
     />
-    <br />
 </>
 );
