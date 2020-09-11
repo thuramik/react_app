@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Checkbox, DefaultButton } from '@fluentui/react';
+import { Checkbox } from '@fluentui/react';
 
 export const Task = ({ id, isCompleted, label, updateTask }) => {
     const [completed, setCompleted] = useState(isCompleted);

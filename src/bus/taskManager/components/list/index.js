@@ -15,7 +15,7 @@ export const List = ({ items, deleteTask, updateTask }) => {
     ) => {
         const onSubmit = event => deleteTask(id);
         return (
-            <>
+            <div key={id}>
                 <Task
                     id={id}
                     key={id}
@@ -29,7 +29,7 @@ export const List = ({ items, deleteTask, updateTask }) => {
                 </form>
                 <br />
                 <br />
-            </>
+            </div>
             );
         }
     );
