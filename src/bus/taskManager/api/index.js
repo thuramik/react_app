@@ -2,10 +2,10 @@ export const api = {
     tasks: {
         getAll: async () => {
             const response = await fetch('http://localhost:5000/tasks');
-            return await response.json();
+            return response;
         },
 
-        create: (title) => {
+        create: async (title) => {
             fetch('http://localhost:5000/tasks', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -15,7 +15,7 @@ export const api = {
             });
         },
 
-        update: (id, isCompleted) => {
+        update: async (id, isCompleted) => {
             fetch('http://localhost:5000/tasks/' + id, {
                 method: "PUT",
                 headers: { 'Content-Type': 'application/json' },
@@ -25,7 +25,7 @@ export const api = {
             });
         },
 
-        delete: (id) => {
+        delete: async (id) => {
             fetch('http://localhost:5000/tasks/' + id, {
                 method: "DELETE",
             });
