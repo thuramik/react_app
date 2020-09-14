@@ -7,18 +7,20 @@ import { api  } from "../../api";
 
 export function* fetchTasks() {
     try {
-        // Vkliuchit spinner
+        yield put(taskManagerActions.startFetchingTasks());
+
         const response = yield call(api.tasks.getAll);
         const tasks = yield call([response, response.json]);
         if (response.status !== 200) {
-            throw new Error('Some error');
+            throw new Error(response.status.toString());
         }
 
         yield delay(2000);
         yield put(taskManagerActions.fillTasks(tasks));
     } catch (ex) {
-        // vidpravyty pomylku v redux
+        console.log(ex);
+        yield put(taskManagerActions.fetchWithError(ex.message));
     } finally {
-        // Vykliuchit spinner
+        yield put(taskManagerActions.finishFetchingTasks());
     }
 }

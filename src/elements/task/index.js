@@ -7,6 +7,7 @@ export const Task = ({ id, isCompleted, label, updateTask }) => {
     const onChangeCompleted = (event, checked) => {
         setCompleted(checked);
         updateTask(id, checked);
+        event.preventDefault();
     };
 
     return (

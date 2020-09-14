@@ -13,7 +13,10 @@ export const List = ({ items, deleteTask, updateTask }) => {
             isCompleted
         }
     ) => {
-        const onSubmit = event => deleteTask(id);
+        const onSubmit = (event) =>  {
+            deleteTask(id);
+            event.preventDefault();
+        }
         return (
             <div key={id}>
                 <Task

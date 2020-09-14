@@ -10,9 +10,9 @@ export const Create = ({ createTask }) => {
     const [title, setTitle] = useState([]);
 
     const onSubmit = event => {
+        event.preventDefault();
         if (title.length === 0) {
             alert('Fill title');
-            event.preventDefault();
         } else {
             createTask(title);
         }

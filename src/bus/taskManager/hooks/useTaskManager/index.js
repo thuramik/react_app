@@ -1,33 +1,45 @@
 // Core
-import { useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 // API
 import { api } from '../../api';
 import { taskManagerActions } from "../../actions";
 
-const mockData = [
-    {
-        id: 'A-1',
-        title: 'Learn Git',
-        isCompleted: true,
-    }
-];
-
 export const useTaskManager = () => {
     const dispatch = useDispatch();
 
-    const { tasks } = useSelector((state) => state.taskManager);
+    const { tasks, fetching, errorCode } = useSelector((state) => state.taskManager);
+    const [flag, setFlag] = useState(true);
 
     useEffect( () => {
-        dispatch(taskManagerActions.fetchTasksAsync());
-        // (async () => {
-        //     const tasks = await api.tasks.getAll();
-        //     setTasks(tasks);
-        // })();
-    }, [dispatch]);
+        if (flag === true) {
+            dispatch(taskManagerActions.fetchTasksAsync());
+            setFlag(false);
+        }
+    }, [dispatch, flag]);
+
+    const createTask = (title) => {
+        api.tasks.create(title);
+        setFlag(true);
+    }
+
+    const updateTask = (id, isCompleted) => {
+        api.tasks.update(id, isCompleted);
+        setFlag(true);
+    }
+
+    const deleteTask = (id) => {
+        api.tasks.delete(id);
+        setFlag(true);
+    };
 
     return {
         tasks,
+        fetching,
+        errorCode,
+        createTask,
+        updateTask,
+        deleteTask
     }
 }

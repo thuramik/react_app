@@ -6,15 +6,13 @@ import { Text } from '@fluentui/react';
 import { List } from '../../bus/taskManager/components/list';
 import { Create } from '../../bus/taskManager/components/create';
 import { useTaskManager } from './hooks/useTaskManager';
-import {createTaskManager} from "./hooks/createTaskManager";
-import {deleteTaskManager} from "./hooks/deleteTaskManager";
-import {updateTaskManager} from "./hooks/updateTaskManager";
+
+// Element
+import {Loader} from "../../elements/loader";
+import {Error} from "../../elements/Error";
 
 export const TaskManager = () => {
-    const { tasks } = useTaskManager();
-    const createTask = createTaskManager();
-    const deleteTask = deleteTaskManager();
-    const updateTask = updateTaskManager();
+    const { tasks, fetching, errorCode, createTask, deleteTask, updateTask } = useTaskManager();
 
     return (
         <div>
@@ -25,6 +23,8 @@ export const TaskManager = () => {
             <Create createTask={createTask} />
             <br />
             <List items={tasks} deleteTask={deleteTask} updateTask={updateTask} />
+            <Loader fetching={fetching} />
+            <Error errorCode={errorCode} />
         </div>
     );
 };
