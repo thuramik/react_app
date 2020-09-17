@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 
 //Elements
 import {Text, PrimaryButton, TextField} from "@fluentui/react";
+import {LoaderCreating} from "../../../../elements/loaderCreating";
 
 
-export const Create = ({ createTask }) => {
+export const Create = ({ createTask, creating }) => {
 
     const [title, setTitle] = useState([]);
 
@@ -30,8 +31,9 @@ export const Create = ({ createTask }) => {
         <br />
         <form onSubmit={onSubmit}>
             <TextField onChange={onChangeTitle} label="Title" />
-            <PrimaryButton type="submit" text="Create task" />
+            <PrimaryButton type="submit" text="Create task" disabled={creating} />
         </form>
+        <LoaderCreating creating={creating} />
     </>
     );
 }

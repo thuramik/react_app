@@ -1,43 +1,37 @@
 // Core
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 // API
-import { api } from '../../api';
 import { taskManagerActions } from "../../actions";
 
 export const useTaskManager = () => {
     const dispatch = useDispatch();
 
-    const { tasks, fetching, errorCode } = useSelector((state) => state.taskManager);
-    const [flag, setFlag] = useState(true);
+    const { tasks, fetching, creating, errorCode, actionOnTaskIds } = useSelector((state) => state.taskManager);
 
     useEffect( () => {
-        if (flag === true) {
-            dispatch(taskManagerActions.fetchTasksAsync());
-            setFlag(false);
-        }
-    }, [dispatch, flag]);
+        dispatch(taskManagerActions.fetchTasksAsync());
+    }, [dispatch]);
 
     const createTask = (title) => {
-        api.tasks.create(title);
-        setFlag(true);
+        dispatch(taskManagerActions.createTaskAsync(title));
     }
 
     const updateTask = (id, isCompleted) => {
-        api.tasks.update(id, isCompleted);
-        setFlag(true);
+        dispatch(taskManagerActions.updateTaskAsync(id, isCompleted));
     }
 
     const deleteTask = (id) => {
-        api.tasks.delete(id);
-        setFlag(true);
+        dispatch(taskManagerActions.deleteTaskAsync(id));
     };
 
     return {
         tasks,
         fetching,
+        creating,
         errorCode,
+        actionOnTaskIds,
         createTask,
         updateTask,
         deleteTask

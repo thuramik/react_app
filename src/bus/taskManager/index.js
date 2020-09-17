@@ -8,11 +8,11 @@ import { Create } from '../../bus/taskManager/components/create';
 import { useTaskManager } from './hooks/useTaskManager';
 
 // Element
-import {Loader} from "../../elements/loader";
 import {Error} from "../../elements/Error";
+import {LoaderFetching} from "../../elements/loaderFetching";
 
 export const TaskManager = () => {
-    const { tasks, fetching, errorCode, createTask, deleteTask, updateTask } = useTaskManager();
+    const { tasks, fetching, creating, errorCode, actionOnTaskIds, createTask, deleteTask, updateTask } = useTaskManager();
 
     return (
         <div>
@@ -20,10 +20,10 @@ export const TaskManager = () => {
                 TaskManager
             </Text>
             <br />
-            <Create createTask={createTask} />
+            <Create createTask={createTask} creating={creating} />
             <br />
-            <List items={tasks} deleteTask={deleteTask} updateTask={updateTask} />
-            <Loader fetching={fetching} />
+            <List  items={tasks} deleteTask={deleteTask} updateTask={updateTask} actionOnTaskIds={actionOnTaskIds} />
+            <LoaderFetching fetching={fetching} />
             <Error errorCode={errorCode} />
         </div>
     );
